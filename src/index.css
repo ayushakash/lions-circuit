@@ -103,10 +103,13 @@ width:25px;
   
 }
 .card{
-  border: 1px solid #ff9800;
+  border: 3px solid rgb(165, 241, 233);
   border-radius: 5px;
   margin-top: 20px;
   transition: all 0.5s;
+  padding:5px;
+  background-color: rgb(225, 255, 238);
+  cursor: pointer;
   
 }
 .item-name{
@@ -135,6 +138,7 @@ width:25px;
   /* justify-content: center; */
   height:80vh;
   border:2px solid black;
+  /* width:80vh; */
     
 
 }
@@ -144,17 +148,18 @@ width:25px;
 
 .update-mobile{
   /* margin-top: -35px; */
-    width:90%;
+    width:30%;
     height: 25%;
     font-size: x-large;
-    margin-left: 5%;
+    /* margin: 5%; */
 }
 
 .update-button{
 
   font-size: large;
+  font-weight: 600;
   padding:6px;
-  margin-top: 5px;
+  margin: 5px;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -168,9 +173,10 @@ width:25px;
 }
 
 .address-editor{
+  margin-top: 10px;
   width:50%;
   border: 2px solid black;
-  background-color: green;
+  background-color: rgb(255, 238, 175);
   border-radius: 10px;
 }
 
@@ -188,8 +194,24 @@ width:25px;
 }
 
 .multiple-address-box{
+display: grid;
 width:100%;
-border: 2px solid black;
+/* border: 2px solid black; */
 border-radius: 10px;
+grid-template-columns: auto auto auto auto ;
+justify-content: space-evenly;
 
+}
+.innerBox{
+
+  width:50%;
+}
+
+
+.update-address{
+  /* margin-top: -35px; */
+    width:90%;
+    height: 25%;
+    font-size: x-large;
+    margin: 5%;
 }

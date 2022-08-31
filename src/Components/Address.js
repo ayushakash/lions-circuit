@@ -1,14 +1,19 @@
 import React from 'react'
 
-const Address = ({addedAddress}) => {
+const Address = ({addedAddress, onEdit}) => {
   return (
     <>
-    <div className="multiple-address-box">
+    
+    
+    <div className="card" onClick={() => onEdit(addedAddress.id, addedAddress.address)}>
+
+    <h3>{addedAddress.id}. {addedAddress.address}</h3>
+    </div>        
+        
             
-            <h3>1. {addedAddress}</h3>
 
 
-        </div> 
+         
       
     </>
   )
