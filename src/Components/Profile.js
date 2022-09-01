@@ -1,15 +1,30 @@
 import {React, useState, useEffect} from 'react'
 import Address from './Address';
 
+
+const validateMobile = (mobile) => {
+    return String(mobile)
+        .toLowerCase()
+        .match(
+            /^[6-9]\d{9}$/
+        );
+};
+
+
 const Profile = () => {
 
     const [mobile, setMobile] = useState('');
 
     const [currentMobile, setCurrentMobile] = useState('');
     const [mobileEdit, setMobileEdit] = useState('hidden');
+    const [mobileError, setMobileError] = useState('');
     const [addressEdit, setAddressEdit] = useState('hidden');
     const [addressAdd, setAddressAdd] = useState('');
+    const [blankAddressError, setBlankAddressError] = useState('');
+    const [blankNewAddressError, setBlankNewAddressError] = useState('');
     const [editCss,setEditCss]=useState('hidden')
+    const [currentUsername,setCurrentUsername]=useState('')
+    const [username,setUsername]=useState('')
     const [editId,setEditId] = useState(0)
     const [items, setItems] = useState([
         {
@@ -19,9 +34,28 @@ const Profile = () => {
     ]);
     const [newAddress, setNewAddress] = useState('');
 
+    
+    const changeUsername=()=>{
+
+        setUsername(currentUsername);
+
+    }
+    
+    
+    
+    
+    
     const changePhone = () => {
 
-        setMobile(currentMobile)
+        setMobileError('');
+        if(validateMobile(currentMobile)){
+
+            setMobile(currentMobile)
+
+        }else{
+            setMobileError('Enter Valid Mobile Number')
+
+        }
         setMobileEdit('hidden')
     }
 
@@ -43,9 +77,18 @@ const Profile = () => {
             'id': length + 1,
             'address': newAddress
         }
+        console.log('from add address'+obj.address)
+        setBlankAddressError('')
 
-        temp.push(obj)
-        setItems([...temp]);
+        if(obj.address==''){
+            // console.log('Address cannot be blank')
+            setBlankAddressError('Address cannot be blank')
+        }
+        else{
+
+            temp.push(obj)
+            setItems([...temp]);
+        }
         setAddressEdit('hidden');
 
     }
@@ -54,14 +97,14 @@ const Profile = () => {
 
         console.log('change value'+e.target.value)
 
-        if(e.target.value === ''){
-
-            console.log('Enter valid address')
-
-        }else{
-
             setNewAddress(e.target.value)
-        }
+        // if(e.target.value === ''){
+
+        //     console.log('Enter valid address')
+
+        // }else{
+
+        // }
     }
 
     const changeEditValue = (e) => {
@@ -91,7 +134,7 @@ const Profile = () => {
       
       console.log(editId ,addressAdd)
       let temp = items;
-
+      setBlankNewAddressError('')
       let foundItem = items.filter(item => item.id === editId)
       foundItem = foundItem[0]
 
@@ -101,9 +144,20 @@ const Profile = () => {
         id: editId,
         address: addressAdd
       }
+      console.log(obj.address)
+
+      if(obj.address==''){
+
+        setBlankNewAddressError('Edited Address cannot be blank')
+
+      }else{
+
+          items.splice(index, 1, obj)
+
+          console.log(items)
+
+      }
     
-      items.splice(index, 1, obj)
-      console.log(items)
 
       setEditCss('hidden')
 
@@ -111,14 +165,32 @@ const Profile = () => {
 
 
     return (
-        <> < div className = "main-profile" > <div className="innerBox">
-            <h1>User name :{}</h1>
+        <> <div className = "main-profile" > <div className="innerBox">
+            <h1>User name :{username}</h1>
 
-            <h1>Mobile: {
-                    mobile
-                }
-                <br/>
-                <button className='update-button' onClick={openEditor}>Add/Edit Mobile Number
+            <small style={{color: 'red'}}>{mobileError}<br/></small>
+                <button className='update-button-mobile' onClick={openEditor}>Add/Edit User Name
+                </button>
+            
+                <div className={mobileEdit}>
+                <h1>
+                    <label htmlFor="Name" className="update-mobile">Change User Name</label>
+                </h1><br/>
+                <input
+                    type="text"
+                    
+                    className="update-mobile"
+                    value={currentUsername}
+                    onChange={(e) => setCurrentUsername(e.target.value)}
+                    maxlength="15"
+                    required="required"/>
+                <button className='update-button' onClick={changeUsername}>Update</button>
+            </div>
+        {/* //////////////////////////////////////////////// */}
+            <h1>Mobile: {mobile}
+                    
+                <small style={{color: 'red'}}>{mobileError}<br/></small>
+                <button className='update-button-mobile' onClick={openEditor}>Add/Edit Mobile Number
                 </button>
             </h1>
             <div className={mobileEdit}>
@@ -127,7 +199,7 @@ const Profile = () => {
                 </h1><br/>
                 <input
                     type="text"
-                    pattern="/(7|8|9)\d{9}/"
+                    
                     className="update-mobile"
                     value={currentMobile}
                     onChange={(e) => setCurrentMobile(e.target.value)}
@@ -135,9 +207,13 @@ const Profile = () => {
                     required="required"/>
                 <button className='update-button' onClick={changePhone}>Update</button>
             </div>
-
-            <h1>Address :
-            </h1><br/>
+                <div className="color">
+            <h1>Address 
+            </h1><br/><small style={{color: 'red'}}>{blankAddressError}<br/></small>
+            <small style={{color: 'red'}}>{blankNewAddressError}<br/></small>
+                        
+                    
+                    
 
             <small>Click on address to edit</small>
             <div className="products-grid">
@@ -150,6 +226,7 @@ const Profile = () => {
 
                 }
 
+            </div>
             </div>
 
             <br/>

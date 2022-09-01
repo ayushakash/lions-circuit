@@ -9,6 +9,13 @@ const validateEmail = (email) => {
         );
 };
 
+const validatePassword = (password) => {
+    return String(password)
+        .toLowerCase()
+        .match(
+            /^[A-Za-z]\w{7,14}$/
+        );
+};
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
@@ -18,9 +25,21 @@ const Login = () => {
     console.log(email);
     const navigateToProducts = () => {
         // validateEmail(email)
-        if (validateEmail(email)   ) {
+        if (validateEmail(email) ) {
             
-            navigate('/products') 
+             
+            if(validatePassword(password)){
+                
+                navigate('/products')
+            }
+            
+            else{
+                console.log(password)
+                console.log("Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")
+                setError('Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters')
+            }
+            
+            
             
         } else{
             console.log("Please enter a valid email")
@@ -28,13 +47,16 @@ const Login = () => {
             setError('Please enter a valid email')
 
         }
-        // else if (password === "ayushakash") {
+        // else if (validatePassword(password)) {
+
+
+
 
         // } else {
         //     // navigate to products page
         // }
 
-        // if(email==='ayushakash9@gmail.com'){   navigate('/products') } else{
+        
     }
 
     const formSubmit = (e) => {
@@ -69,6 +91,8 @@ const Login = () => {
                     name="password"
                     autocomplete="off"
                     className="input_field"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+
                     placeholder='password'
                     minlength="8"
                     required="required"

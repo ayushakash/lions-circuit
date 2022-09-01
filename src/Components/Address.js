@@ -5,7 +5,7 @@ const Address = ({addedAddress, onEdit}) => {
     <>
     
     
-    <div className="card" onClick={() => onEdit(addedAddress.id, addedAddress.address)}>
+    <div className="address-card" onClick={() => onEdit(addedAddress.id, addedAddress.address)}>
 
     <h3>{addedAddress.id}. {addedAddress.address}</h3>
     </div>        
