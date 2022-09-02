@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
-import Products from './Products';
+import { useNavigate} from "react-router-dom";
+
 
 const validateEmail = (email) => {
     return String(email)
@@ -13,9 +13,7 @@ const validateEmail = (email) => {
 const validatePassword = (password) => {
     return String(password)
         .toLowerCase()
-        .match(
-            /^[A-Za-z]\w{7,14}$/
-        );
+        .match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/);
 };
 const Login = () => {
     const navigate = useNavigate();
@@ -24,83 +22,68 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    console.log(email);
+    
     const navigateToProducts = () => {
-        // validateEmail(email)
-        if (validateEmail(email) ) {
+
+        if (validateEmail(email)) {
             
-                 navigate('/products')
-                 
-                 setEmailToSave(email);
-             
-                    
-                    
-                } else{
+
+            setEmailToSave(email);
+            navigate('/products')
+            // if (validatePassword(password)){ }else{ console.log("Please enter a valid
+            // password") }
+
+        } else {
             console.log("Please enter a valid email")
-            
+
             setError('Please enter a valid email')
 
         }
-        // else if (validatePassword(password)) {
 
-
-
-
-        // } else {
-        //     // navigate to products page
-        // }
-
-        
     }
 
     const formSubmit = (e) => {
         e.preventDefault()
     }
 
-    // value={address} onChange={(e) => setAddress(e.target.value)}
-
-    return (
-        <> < div className = "login_main" > <form onSubmit={formSubmit}>
-            <div className="login_container">
-                <div className="form-header">
-                    <h4>Welcome to Lion Ciruits</h4>
-                </div>
-                <small style={{
-                        color: 'red'
-                    }}>{error}
-                    <br/></small>
-                <label htmlFor="Name" className="form-label">Email</label><br/>
-                <input
-                    className="input_field"
-                    autocomplete="off"
-                    required="required"
-                    type="email"
-                    placeholder='lion.circuit@gmail.com'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}/><br/>
-                <label htmlFor="Name" className="form-label">Password</label><br/>
-                <input
-                    type="password"
-                    id="pass"
-                    name="password"
-                    autocomplete="off"
-                    className="input_field"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-
-                    placeholder='password'
-                    minlength="8"
-                    required="required"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}/><br/>
-                <div className="login-button-div">
-                    <button className="login-button" type="submit" onClick={navigateToProducts}>Login</button>
-                </div>
+    return (<> < div className = "login_main" > <form onSubmit={formSubmit}>
+        <div className="login_container">
+            <div className="form-header">
+                <h4>Welcome to Lion Ciruits</h4>
             </div>
+            <small style={{
+                    color: 'red'
+                }}>{error}
+                <br/></small>
+            <label htmlFor="Name" className="form-label">Email</label><br/>
+            <input
+                className="input_field"
+                autoComplete="off"
+                required="required"
+                type="email"
+                placeholder='lion.circuit@gmail.com'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}/><br/>
+            <label htmlFor="Name" className="form-label">Password</label><br/>
+            <input
+                type="password"
+                id="pass"
+                name="password"
+                autoComplete="off"
+                className="input_field"
+                placeholder='password'
+                minLength="8"
+                required="required"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}/><br/>
+            <div className="login-button-div">
+                <button className="login-button" type="submit" onClick={navigateToProducts}>Login</button>
+            </div>
+        </div>
 
-        </form>
+    </form>
 
-    </div>
-</>
+</div> </>
     )
 }
 
