@@ -18,20 +18,18 @@ const validateEmail = (email) => {                   //function to validate emai
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
-    // const [emailToSave, setEmailToSave] = useState('')
+    
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
     
-    const navigateToProducts = () => {
+    const navigateToProducts = async () => {
 
         if (validateEmail(email)) {
-            
 
-            // setEmailToSave(email);
-            navigate('/products')                                    //this line navigates to products page
-            // if (validatePassword(password)){ }else{ console.log("Please enter a valid
-            // password") }
+           
+              navigate('/products')                                    //this line navigates to products page
+            
 
         } else {
             console.log("Please enter a valid email")

@@ -1,5 +1,6 @@
 import {React, useState} from 'react';
 import Address from './Address';
+import axios from 'axios';
 
 const validateMobile = (mobile) => {
     return String(mobile)
@@ -45,21 +46,9 @@ const Profile = () => {
 
         setDbButton('updated-db-button')
         
-
-        const response = await fetch('http://localhost:4000/store', {                   //this function sends data to backend
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-
-                mode: 'no-cors'
-            },
-
-            body: new URLSearchParams(
-                {"name": username, "address": finalAddress, "mobile": mobile}
-            )
-
-        });
-        console.log(response);
+        const response = await axios.post('http://localhost:4000/store', {"name": username, "address": finalAddress, "mobile": mobile})   //this function sends data to backend
+                           
+        
     }
 
     const changeUsername = () => {
