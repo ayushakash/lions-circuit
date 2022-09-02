@@ -13,7 +13,7 @@ import {
 function App() {
   return (
     <>
-    <Navbar/>
+    <Navbar />
 
     <Routes>
                  <Route exact path='/' element={< Login />}></Route>

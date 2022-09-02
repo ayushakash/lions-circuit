@@ -1,5 +1,6 @@
 import {React, useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
+import Products from './Products';
 
 const validateEmail = (email) => {
     return String(email)
@@ -19,6 +20,7 @@ const validatePassword = (password) => {
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
+    const [emailToSave, setEmailToSave] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
@@ -27,21 +29,13 @@ const Login = () => {
         // validateEmail(email)
         if (validateEmail(email) ) {
             
+                 navigate('/products')
+                 
+                 setEmailToSave(email);
              
-            if(validatePassword(password)){
-                
-                navigate('/products')
-            }
-            
-            else{
-                console.log(password)
-                console.log("Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")
-                setError('Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters')
-            }
-            
-            
-            
-        } else{
+                    
+                    
+                } else{
             console.log("Please enter a valid email")
             
             setError('Please enter a valid email')

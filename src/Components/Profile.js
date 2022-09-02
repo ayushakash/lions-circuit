@@ -10,10 +10,22 @@ const validateMobile = (mobile) => {
         );
 };
 
+const validateName = (name) => {
+    return String(name)
+        .toLowerCase()
+        .match(
+            /^[A-Za-z\s]+$/
+        );
+};
+
+// 
 
 const Profile = () => {
 
-    const [mobile, setMobile] = useState('');
+    const [mobile, setMobile] = useState('8553545862');
+    const [name, setName] = useState('');
+    const [finalAddress, setFinalAddress] = useState([]);
+    const [response, setResponse] = useState('');
 
     const [currentMobile, setCurrentMobile] = useState('');
     const [mobileEdit, setMobileEdit] = useState('hidden');
@@ -24,20 +36,56 @@ const Profile = () => {
     const [blankNewAddressError, setBlankNewAddressError] = useState('');
     const [editCss,setEditCss]=useState('hidden')
     const [currentUsername,setCurrentUsername]=useState('')
-    const [username,setUsername]=useState('')
+    const [nameEdit,setNameEdit]=useState('hidden')
+    const [username,setUsername]=useState('Ayush Akash')
+    const [newAddress, setNewAddress] = useState('');
     const [editId,setEditId] = useState(0)
     const [items, setItems] = useState([
         {
             'id': 1,
-            'address': 'ranchi'
+            'address': '304/c Hiranandani Appartment,Akshay Nagar ,Bangalore'
         }
     ]);
-    const [newAddress, setNewAddress] = useState('');
+    console.log(finalAddress,username,mobile);
+    // console.log(username)
+    // console.log(mobile) 
 
+    async function sendToDatabase() {
+        const response = await fetch('http://localhost:4000/store', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Accept': 'application/json',
+    
+                mode: 'no-cors'
+            },
+
+            body: new URLSearchParams({
+                "name": username,
+                "address": finalAddress,
+                "mobile": mobile,
+
+            })
+
+        });
+        
+        
+
+    }
+
+
+        
+        
+    
+    
+    
+    
     
     const changeUsername=()=>{
-
+            
         setUsername(currentUsername);
+        setNameEdit('hidden')
+
 
     }
     
@@ -64,6 +112,11 @@ const Profile = () => {
         setMobileEdit('mobile-edit')
     }
 
+    const openNameEditor = ()=> {
+
+        setNameEdit('mobile-edit')
+    }
+
     const showInputBox = () => {
 
         setAddressEdit('address-editor');
@@ -78,6 +131,10 @@ const Profile = () => {
             'address': newAddress
         }
         console.log('from add address'+obj.address)
+        setFinalAddress(temp);
+        
+        // console.log(temp)
+
         setBlankAddressError('')
 
         if(obj.address==''){
@@ -153,8 +210,10 @@ const Profile = () => {
       }else{
 
           items.splice(index, 1, obj)
+        //   console.log('from editor'+items)
+          setFinalAddress(items);
 
-          console.log(items)
+        //   console.log(items)
 
       }
     
@@ -166,13 +225,12 @@ const Profile = () => {
 
     return (
         <> <div className = "main-profile" > <div className="innerBox">
-            <h1>User name :{username}</h1>
+            <h1>User Name :{username}</h1>
 
-            <small style={{color: 'red'}}>{mobileError}<br/></small>
-                <button className='update-button-mobile' onClick={openEditor}>Add/Edit User Name
+                <button className='update-button-mobile' onClick={openNameEditor}>Add/Edit User Name
                 </button>
             
-                <div className={mobileEdit}>
+                <div className={nameEdit}>
                 <h1>
                     <label htmlFor="Name" className="update-mobile">Change User Name</label>
                 </h1><br/>
@@ -186,13 +244,14 @@ const Profile = () => {
                     required="required"/>
                 <button className='update-button' onClick={changeUsername}>Update</button>
             </div>
+
         {/* //////////////////////////////////////////////// */}
             <h1>Mobile: {mobile}
                     
-                <small style={{color: 'red'}}>{mobileError}<br/></small>
+                <small style={{color: 'red'}}>{mobileError}<br/></small></h1>
                 <button className='update-button-mobile' onClick={openEditor}>Add/Edit Mobile Number
                 </button>
-            </h1>
+            
             <div className={mobileEdit}>
                 <h1>
                     <label htmlFor="Name" className="update-mobile">Update mobile number</label>
@@ -261,6 +320,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
+        <button className='update-button' onClick={sendToDatabase}>Save Changes</button>
     </div>
 </>
     )
