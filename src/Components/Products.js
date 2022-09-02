@@ -12,8 +12,8 @@ const Products = () => {
 
     {
               datas.map((curData) => {
-                    return <Card key={curData._id} {...curData}/>
-                  console.log(curData)
+                    return <Card key={curData._id} {...curData}/>                 //this loops through all the data present and send to Card for rendering
+                  
                 })
             }
         

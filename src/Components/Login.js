@@ -2,7 +2,7 @@ import {React, useState} from 'react'
 import { useNavigate} from "react-router-dom";
 
 
-const validateEmail = (email) => {
+const validateEmail = (email) => {                   //function to validate email
     return String(email)
         .toLowerCase()
         .match(
@@ -10,15 +10,15 @@ const validateEmail = (email) => {
         );
 };
 
-const validatePassword = (password) => {
-    return String(password)
-        .toLowerCase()
-        .match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/);
-};
+// const validatePassword = (password) => {                //function to validate password
+//     return String(password)
+//         .toLowerCase()
+//         .match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/);
+// };
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
-    const [emailToSave, setEmailToSave] = useState('')
+    // const [emailToSave, setEmailToSave] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
@@ -28,8 +28,8 @@ const Login = () => {
         if (validateEmail(email)) {
             
 
-            setEmailToSave(email);
-            navigate('/products')
+            // setEmailToSave(email);
+            navigate('/products')                                    //this line navigates to products page
             // if (validatePassword(password)){ }else{ console.log("Please enter a valid
             // password") }
 

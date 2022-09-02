@@ -7,11 +7,11 @@ const validateMobile = (mobile) => {
         .match(/^[6-9]\d{9}$/);
 };
 
-const validateName = (name) => {
-    return String(name)
-        .toLowerCase()
-        .match(/^[A-Za-z\s]+$/);
-};
+// const validateName = (name) => {
+//     return String(name)
+//         .toLowerCase()
+//         .match(/^[A-Za-z\s]+$/);
+// };
 
 const Profile = () => {
 
@@ -44,9 +44,9 @@ const Profile = () => {
         setDbButtonText('Data Saved')
 
         setDbButton('updated-db-button')
-        // let bodyToSend=JSON.parse({"name": username, "address": finalAddress, "mobile": mobile})
+        
 
-        const response = await fetch('http://localhost:4000/store', {
+        const response = await fetch('http://localhost:4000/store', {                   //this function sends data to backend
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -59,7 +59,7 @@ const Profile = () => {
             )
 
         });
-
+        console.log(response);
     }
 
     const changeUsername = () => {
@@ -105,7 +105,7 @@ const Profile = () => {
 
     }
 
-    const addAddress = () => {
+    const addAddress = () => {                                              //this function pushes new address to the array of address
         let temp = items
         let length = items.length;
         let obj = {
@@ -117,7 +117,7 @@ const Profile = () => {
 
         setBlankAddressError('')
 
-        if (obj.address == '') {
+        if (obj.address === '') {
 
             setBlankAddressError('Address cannot be blank')
         } else {
@@ -153,11 +153,11 @@ const Profile = () => {
 
     }
 
-    const onClickEdit = () => {
+    const onClickEdit = () => {                                                 //function to edit the address on click
         setDbButtonText('Save changes to Database')
         setDbButton('update-button')
         console.log(editId, addressAdd)
-        let temp = items;
+        // let temp = items;
         setBlankNewAddressError('')
         let foundItem = items.filter(item => item.id === editId)
         foundItem = foundItem[0]
@@ -170,7 +170,7 @@ const Profile = () => {
         }
         console.log(obj.address)
 
-        if (obj.address == '') {
+        if (obj.address === '') {
 
             setBlankNewAddressError('Edited Address cannot be blank')
 
